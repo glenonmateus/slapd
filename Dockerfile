@@ -6,12 +6,18 @@ ENV TZ America/Sao_Paulo
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       slapd \
-      ldap-utils
+      ldap-utils && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    mkdir /etc/ldap/certs && mkdir /etc/ldap/private && \
+    chown openldap: /etc/ldap/certs && chown openldap: /etc/ldap/private
 
 COPY ["run", "/usr/local/bin/"]
 COPY ["ldifs", "/etc/ldap/"]
 COPY ["samba.schema", "/etc/ldap/schema/"]
-COPY ["samba.conf", "/tmp/"] 
+COPY ["schema.conf", "/tmp/"] 
+COPY --chown=openldap:openldap ["ldap.crt", "/etc/ldap/certs/"]
+COPY --chown=openldap:openldap ["ldap.csr", "/etc/ldap/certs/"]
+COPY --chown=openldap:openldap ["ldap.key", "/etc/ldap/private/"]
 
 RUN mkdir /tmp/slapd.d/ && \
     slaptest -f /tmp/schema.conf -F /tmp/slapd.d/ && \

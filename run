@@ -7,6 +7,7 @@
 : ${LDAP_DEBUG:='1'}
 
 olcDatabase=/etc/ldap/olcDatabase.ldif
+olcTLS=/etc/ldap/olcTLS.ldif
 
 CONFIGS_VARS=(
   LDAP_BASEDN
@@ -19,12 +20,14 @@ echo -n "==> Setting config vars ... "
 for c in ${CONFIGS_VARS[@]}
 do
   sed -i "s,@@${c}@@,$(eval echo \$${c})," ${olcDatabase}
+  sed -i "s,@@${c}@@,$(eval echo \$${c})," ${olcTLS}
 done
 echo "Done"
 
 echo "==> Setting configuration ..."
 slapd -u openldap -g openldap -h "ldapi:///" -F ${LDAP_CONFDIR}
 ldapmodify -Y EXTERNAL -H ldapi:/// -f ${olcDatabase}
+ldapmodify -Y EXTERNAL -H ldapi:/// -f ${olcTLS}
 kill $(cat /run/slapd/slapd.pid)
 
 echo "==> Starting slapd ..."
