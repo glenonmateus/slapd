@@ -1,0 +1,32 @@
+#!/bin/bash
+
+: ${LDAP_BASEDN:='dc=exemplo'}
+: ${LDAP_ROOTPW:=$(slappasswd -s 'secret')}
+: ${LDAP_URLS:='ldapi:/// ldaps:/// ldap:///'}
+: ${LDAP_CONFDIR:='/etc/ldap/slapd.d/'}
+: ${LDAP_DEBUG:='1'}
+
+olcDatabase=/etc/ldap/olcDatabase.ldif
+
+CONFIGS_VARS=(
+  LDAP_BASEDN
+  LDAP_ROOTPW
+  LDAP_URLS
+  LDAP_CONFDIR
+)
+
+echo -n "==> Setting config vars ... "
+for c in ${CONFIGS_VARS[@]}
+do
+  sed -i "s,@@${c}@@,$(eval echo \$${c})," ${olcDatabase}
+done
+echo "Done"
+
+echo "==> Setting configuration ..."
+slapd -u openldap -g openldap -h "ldapi:///" -F ${LDAP_CONFDIR}
+ldapmodify -Y EXTERNAL -H ldapi:/// -f ${olcDatabase}
+kill $(cat /run/slapd/slapd.pid)
+
+echo "==> Starting slapd ..."
+slapd -u openldap -g openldap -h "${LDAP_URLS}" -F ${LDAP_CONFDIR} -d ${LDAP_DEBUG}
+
