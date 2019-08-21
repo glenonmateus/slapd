@@ -8,12 +8,18 @@ RUN apt-get update && \
       slapd \
       ldap-utils
 
-EXPOSE 389 636
-VOLUME ["/etc/ldap/slapd.d", "/var/lib/ldap"]
 COPY ["run", "/usr/local/bin/"]
 COPY ["ldifs", "/etc/ldap/"]
-RUN chmod +x /usr/local/bin/run
+COPY ["samba.schema", "/etc/ldap/schema/"]
+COPY ["samba.conf", "/tmp/"] 
 
+RUN mkdir /tmp/slapd.d/ && \
+    slaptest -f /tmp/schema.conf -F /tmp/slapd.d/ && \
+    cp /tmp/slapd.d/cn=config/cn=schema/cn={4}samba.ldif /etc/ldap/slapd.d/cn=config/cn=schema && \
+    chown openldap: /etc/ldap/slapd.d/cn=config/cn=schema/cn={4}samba.ldif
+    
+EXPOSE 389 636
+VOLUME ["/etc/ldap/slapd.d", "/var/lib/ldap"]
+
+RUN chmod +x /usr/local/bin/run
 ENTRYPOINT ["/usr/local/bin/run"]
-#CMD ["slapd", "-u", "openldap", "-g", "openldap", "-h", "ldapi:/// ldaps:/// ldap:///", "-d", "1", "-F", "/etc/ldap/slapd.d/"]
-#CMD ["bash"]
