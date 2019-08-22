@@ -1,0 +1,138 @@
+version: 1
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.244
+dn: o=FUMEC
+objectClass: organization
+objectClass: top
+o: FUMEC
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.297
+dn: ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: REITORIA
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.322
+dn: ou=ADMINISTRATIVO,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: ADMINISTRATIVO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.339
+dn: ou=FCH,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: FCH
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.364
+dn: ou=FEA,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: FEA
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.389
+dn: ou=FACE,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: FACE
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.414
+dn: ou=MESTRADO,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: MESTRADO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.539
+dn: ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: POSGRADUACAO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.588
+dn: ou=ACADEMICO,ou=FCH,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.638
+dn: ou=ADMINISTRATIVO,ou=FCH,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ADMINISTRATIVO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.664
+dn: ou=ACADEMICO,ou=FEA,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.688
+dn: ou=ADMINISTRATIVO,ou=FEA,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: ADMINISTRATIVO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.713
+dn: ou=ACADEMICO,ou=FACE,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.738
+dn: ou=ADMINISTRATIVO,ou=FACE,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ADMINISTRATIVO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.763
+dn: ou=ACADEMICO,ou=MESTRADO,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.788
+dn: ou=ACADEMICO,ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+#!RESULT OK
+#!CONNECTION ldap://127.0.0.1:636
+#!DATE 2019-08-22T15:58:52.838
+dn: ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: SETOR DE TI
+
