@@ -4,4 +4,19 @@ services:
 
   slapd:
     image: glenonmateus/slapd
-    environments:
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+    - 389:389
+    - 636:636
+    environment:
+    - LDAP_BASEDN=o=FUMEC
+    - LDAP_PASSWORD=secret
+    volumes:
+    - slapd_conf:/etc/ldap/
+    - slapd_lib:/var/lib/ldap/
+
+volumes:
+  slapd_conf:
+  slapd_lib:

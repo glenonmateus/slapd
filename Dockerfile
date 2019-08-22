@@ -10,10 +10,11 @@ RUN apt-get update && \
       gnutls-bin \ 
       ssl-cert && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    usermod -aG ssl-cert openldap
+    usermod -aG ssl-cert openldap && \
+    mkdir /etc/ldap/certs/ && mkdir -m 0710 /etc/ldap/private/ && \
+    chown :ssl-cert /etc/ldap/private/
 
 COPY ["run", "/usr/local/bin/"]
-COPY ["ldifs", "/etc/ldap/"]
 COPY ["samba.schema", "/etc/ldap/schema/"]
 COPY ["sudo.schema", "/etc/ldap/schema/"]
 COPY ["schema.conf", "/tmp/"] 
@@ -23,7 +24,7 @@ RUN mkdir /tmp/slapd.d/ && \
     cp -R /tmp/slapd.d/cn=config/cn=schema/* /etc/ldap/slapd.d/cn=config/cn=schema && \
     chown openldap: /etc/ldap/slapd.d/cn=config/cn=schema/* && \
     rm -rf /tmp/slapd.d/ /tmp/schema.conf
-    
+
 EXPOSE 389 636
 VOLUME ["/etc/ldap/slapd.d", "/var/lib/ldap"]
 
