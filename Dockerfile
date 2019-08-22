@@ -28,4 +28,4 @@ VOLUME ["/etc/ldap/", "/var/lib/ldap"]
 
 COPY ["docker-entrypoint", "."]
 RUN chmod +x docker-entrypoint
-ENTRYPOINT ["bash"]
+ENTRYPOINT ["/docker-entrypoint"]
