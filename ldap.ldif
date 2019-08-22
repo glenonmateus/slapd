@@ -1,0 +1,87 @@
+version: 1
+
+dn: o=FUMEC
+objectClass: organization
+objectClass: top
+o: FUMEC
+
+dn: ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: REITORIA
+
+dn: ou=ADMINISTRATIVO,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: ADMINISTRATIVO
+
+dn: ou=FCH,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: FCH
+
+dn: ou=FEA,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: FEA
+
+dn: ou=FACE,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: FACE
+
+dn: ou=MESTRADO,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: MESTRADO
+
+dn: ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: POSGRADUACAO
+
+dn: ou=ACADEMICO,ou=FCH,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+dn: ou=ADMINISTRATIVO,ou=FCH,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ADMINISTRATIVO
+
+dn: ou=ACADEMICO,ou=FEA,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+dn: ou=ADMINISTRATIVO,ou=FEA,ou=REITORIA,o=FUMEC
+objectClass: organizationalUnit
+objectClass: top
+ou: ADMINISTRATIVO
+
+dn: ou=ACADEMICO,ou=FACE,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+dn: ou=ADMINISTRATIVO,ou=FACE,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ADMINISTRATIVO
+
+dn: ou=ACADEMICO,ou=MESTRADO,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+dn: ou=ACADEMICO,ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: ACADEMICO
+
+dn: ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: SETOR DE TI
+
