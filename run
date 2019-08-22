@@ -1,8 +1,7 @@
 #!/bin/bash
 
-: ${LDAP_PASSWORD:='secret'}
 : ${LDAP_BASEDN:='dc=exemplo'}
-: ${LDAP_ROOTPW:=$(slappasswd -s "${LDAP_PASSWORD}")}
+: ${LDAP_ROOTPW:='secret'}
 : ${LDAP_URLS:='ldapi:/// ldaps:/// ldap:///'}
 : ${LDAP_CONFDIR:='/etc/ldap/slapd.d/'}
 : ${LDAP_DEBUG:='1'}
@@ -21,7 +20,6 @@ CONFIGS_VARS=(
   LDAP_TLSCERTKEYFILE
 )
 
-
 echo "==> Setting configuration ..."
 chown openldap: ${LDAP_TLSCERTKEYFILE}
 slapd -u openldap -g openldap -h "ldapi:///" -F ${LDAP_CONFDIR}
@@ -35,7 +33,7 @@ replace: olcRootDN
 olcRootDN: cn=admin,${LDAP_BASEDN}
 -
 replace: olcRootPW
-olcRootPW: ${LDAP_ROOTPW}
+olcRootPW: $(slappasswd -s "${LDAP_ROOTPW}")
 -
 replace: olcDbIndex
 olcDbIndex: cn pres,sub,eq

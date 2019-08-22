@@ -14,7 +14,6 @@ RUN apt-get update && \
     mkdir /etc/ldap/certs/ && mkdir -m 0710 /etc/ldap/private/ && \
     chown :ssl-cert /etc/ldap/private/
 
-COPY ["run", "/usr/local/bin/"]
 COPY ["samba.schema", "/etc/ldap/schema/"]
 COPY ["sudo.schema", "/etc/ldap/schema/"]
 COPY ["schema.conf", "/tmp/"] 
@@ -28,5 +27,6 @@ RUN mkdir /tmp/slapd.d/ && \
 EXPOSE 389 636
 VOLUME ["/etc/ldap/slapd.d", "/var/lib/ldap"]
 
+COPY ["run", "/usr/local/bin/"]
 RUN chmod +x /usr/local/bin/run
 ENTRYPOINT ["/usr/local/bin/run"]

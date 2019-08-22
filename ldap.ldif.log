@@ -2,7 +2,7 @@ version: 1
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.244
+#!DATE 2019-08-22T16:33:47.854
 dn: o=FUMEC
 objectClass: organization
 objectClass: top
@@ -10,7 +10,7 @@ o: FUMEC
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.297
+#!DATE 2019-08-22T16:33:47.912
 dn: ou=REITORIA,o=FUMEC
 objectClass: organizationalUnit
 objectClass: top
@@ -18,7 +18,7 @@ ou: REITORIA
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.322
+#!DATE 2019-08-22T16:33:47.929
 dn: ou=ADMINISTRATIVO,o=FUMEC
 objectClass: organizationalUnit
 objectClass: top
@@ -26,7 +26,7 @@ ou: ADMINISTRATIVO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.339
+#!DATE 2019-08-22T16:33:47.947
 dn: ou=FCH,ou=REITORIA,o=FUMEC
 objectClass: organizationalUnit
 objectClass: top
@@ -34,7 +34,7 @@ ou: FCH
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.364
+#!DATE 2019-08-22T16:33:47.982
 dn: ou=FEA,ou=REITORIA,o=FUMEC
 objectClass: organizationalUnit
 objectClass: top
@@ -42,7 +42,7 @@ ou: FEA
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.389
+#!DATE 2019-08-22T16:33:48.014
 dn: ou=FACE,ou=REITORIA,o=FUMEC
 objectClass: organizationalUnit
 objectClass: top
@@ -50,7 +50,7 @@ ou: FACE
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.414
+#!DATE 2019-08-22T16:33:48.041
 dn: ou=MESTRADO,ou=REITORIA,o=FUMEC
 objectClass: organizationalUnit
 objectClass: top
@@ -58,7 +58,7 @@ ou: MESTRADO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.539
+#!DATE 2019-08-22T16:33:48.136
 dn: ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
 objectClass: organizationalUnit
 objectClass: top
@@ -66,7 +66,7 @@ ou: POSGRADUACAO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.588
+#!DATE 2019-08-22T16:33:48.182
 dn: ou=ACADEMICO,ou=FCH,ou=REITORIA,o=FUMEC
 objectClass: top
 objectClass: organizationalUnit
@@ -74,7 +74,7 @@ ou: ACADEMICO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.638
+#!DATE 2019-08-22T16:33:48.235
 dn: ou=ADMINISTRATIVO,ou=FCH,ou=REITORIA,o=FUMEC
 objectClass: top
 objectClass: organizationalUnit
@@ -82,7 +82,7 @@ ou: ADMINISTRATIVO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.664
+#!DATE 2019-08-22T16:33:48.262
 dn: ou=ACADEMICO,ou=FEA,ou=REITORIA,o=FUMEC
 objectClass: top
 objectClass: organizationalUnit
@@ -90,7 +90,7 @@ ou: ACADEMICO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.688
+#!DATE 2019-08-22T16:33:48.286
 dn: ou=ADMINISTRATIVO,ou=FEA,ou=REITORIA,o=FUMEC
 objectClass: organizationalUnit
 objectClass: top
@@ -98,7 +98,7 @@ ou: ADMINISTRATIVO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.713
+#!DATE 2019-08-22T16:33:48.312
 dn: ou=ACADEMICO,ou=FACE,ou=REITORIA,o=FUMEC
 objectClass: top
 objectClass: organizationalUnit
@@ -106,7 +106,7 @@ ou: ACADEMICO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.738
+#!DATE 2019-08-22T16:33:48.352
 dn: ou=ADMINISTRATIVO,ou=FACE,ou=REITORIA,o=FUMEC
 objectClass: top
 objectClass: organizationalUnit
@@ -114,7 +114,7 @@ ou: ADMINISTRATIVO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.763
+#!DATE 2019-08-22T16:33:48.385
 dn: ou=ACADEMICO,ou=MESTRADO,ou=REITORIA,o=FUMEC
 objectClass: top
 objectClass: organizationalUnit
@@ -122,7 +122,7 @@ ou: ACADEMICO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.788
+#!DATE 2019-08-22T16:33:48.413
 dn: ou=ACADEMICO,ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
 objectClass: top
 objectClass: organizationalUnit
@@ -130,7 +130,7 @@ ou: ACADEMICO
 
 #!RESULT OK
 #!CONNECTION ldap://127.0.0.1:636
-#!DATE 2019-08-22T15:58:52.838
+#!DATE 2019-08-22T16:33:48.469
 dn: ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
 objectClass: top
 objectClass: organizationalUnit
