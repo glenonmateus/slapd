@@ -14,8 +14,7 @@ RUN apt-get update && \
     mkdir /etc/ldap/certs/ && mkdir -m 0710 /etc/ldap/private/ && \
     chown :ssl-cert /etc/ldap/private/
 
-COPY ["samba.schema", "/etc/ldap/schema/"]
-COPY ["sudo.schema", "/etc/ldap/schema/"]
+COPY ["schema", "/etc/ldap/schema/"]
 COPY ["schema.conf", "/tmp/"] 
 
 RUN mkdir /tmp/slapd.d/ && \
