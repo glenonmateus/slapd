@@ -1,0 +1,82 @@
+#!/bin/bash
+
+: ${LDAP_BASEDN:='dc=exemplo'}
+: ${LDAP_ROOTPW:='secret'}
+: ${LDAP_URLS:='ldapi:/// ldaps:/// ldap:///'}
+: ${LDAP_CONFDIR:='/etc/ldap/slapd.d/'}
+: ${LDAP_DEBUG:='1'}
+: ${LDAP_TLSCACERTFILE:='/etc/ldap/certs/ca_server.pem'}
+: ${LDAP_TLSCERTFILE:='/etc/ldap/certs/ldap_server.pem'}
+: ${LDAP_TLSCERTKEYFILE:='/etc/ldap/private/ldap_server.key'}
+
+CONFIGS_VARS=(
+  LDAP_BASEDN
+  LDAP_ROOTPW
+  LDAP_URLS
+  LDAP_CONFDIR
+  LDAP_DEBUG
+  LDAP_TLSCACERTFILE
+  LDAP_TLSCERTFILE
+  LDAP_TLSCERTKEYFILE
+)
+
+echo -n "==> Setting configuration ... "
+[ -f "${LDAP_TLSCERTKEYFILE}" ] && chown openldap: ${LDAP_TLSCERTKEYFILE}
+slapd -u openldap -g openldap -h "ldapi:///" -F "${LDAP_CONFDIR}" && echo "exit error" || exit 1
+ldapmodify -Y EXTERNAL -H ldapi:/// <<EOF
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+replace: olcSuffix
+olcSuffix: ${LDAP_BASEDN}
+-
+replace: olcRootDN
+olcRootDN: cn=admin,${LDAP_BASEDN}
+-
+replace: olcRootPW
+olcRootPW: $(slappasswd -s "${LDAP_ROOTPW}")
+-
+replace: olcDbIndex
+olcDbIndex: cn pres,sub,eq
+-
+add: olcDbIndex
+olcDbIndex: sn pres,sub,eq
+-
+add: olcDbIndex
+olcDbIndex: uid pres,sub,eq
+-
+add: olcDbIndex
+olcDbIndex: displayName pres,sub,eq
+-
+add: olcDbIndex
+olcDbIndex: default sub
+-
+add: olcDbIndex
+olcDbIndex: uidNumber eq
+-
+add: olcDbIndex
+olcDbIndex: gidNumber eq
+-
+add: olcDbIndex
+olcDbIndex: mail,givenName eq,subinitial
+-
+add: olcDbIndex
+olcDbIndex: dc eq
+EOF
+
+ldapmodify -Y EXTERNAL -H ldapi:/// <<EOF
+dn: cn=config
+changetype: modify
+add: olcTLSCACertificateFile
+olcTLSCACertificateFile: ${LDAP_TLSCACERTFILE}
+-
+add: olcTLSCertificateFile
+olcTLSCertificateFile: ${LDAP_TLSCERTFILE}
+-
+add: olcTLSCertificateKeyFile
+olcTLSCertificateKeyFile: ${LDAP_TLSCERTKEYFILE}
+EOF
+kill $(cat /run/slapd/slapd.pid)
+echo "Done"
+
+echo "==> Starting slapd"
+slapd -u openldap -g openldap -h "${LDAP_URLS}" -F ${LDAP_CONFDIR} -d ${LDAP_DEBUG}
