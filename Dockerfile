@@ -24,8 +24,8 @@ RUN mkdir /tmp/slapd.d/ && \
     rm -rf /tmp/slapd.d/ /tmp/schema.conf
 
 EXPOSE 389 636
-VOLUME ["/etc/ldap/slapd.d", "/var/lib/ldap"]
+VOLUME ["/etc/ldap/", "/var/lib/ldap"]
 
-COPY ["run", "/usr/local/bin/"]
-RUN chmod +x /usr/local/bin/run
-ENTRYPOINT ["/usr/local/bin/run"]
+COPY ["docker-entrypoint", "."]
+RUN chmod +x docker-entrypoint
+ENTRYPOINT ["bash"]
