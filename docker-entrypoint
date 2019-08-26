@@ -42,7 +42,7 @@ replace: olcDbIndex
 olcDbIndex: cn pres,sub,eq
 -
 add: olcDbIndex
-olcDbIndex: sn pres,sub,eq
+olcDbIndex: sn,ou pres,sub,eq
 -
 add: olcDbIndex
 olcDbIndex: uid pres,sub,eq
@@ -64,6 +64,9 @@ olcDbIndex: mail,givenName eq,subinitial
 -
 add: olcDbIndex
 olcDbIndex: dc eq
+-
+add: olcDbIndex
+olcDbIndex: objectClass eq,pres
 EOF
 
 ldapmodify -Y EXTERNAL -H ldapi:/// <<EOF
