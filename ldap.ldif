@@ -1,87 +1,120 @@
 version: 1
 
 dn: o=FUMEC
-objectClass: organization
 objectClass: top
+objectClass: organization
 o: FUMEC
 
 dn: ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: REITORIA
 
 dn: ou=ADMINISTRATIVO,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ADMINISTRATIVO
 
 dn: ou=FCH,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: FCH
 
 dn: ou=FEA,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: FEA
 
 dn: ou=FACE,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: FACE
 
 dn: ou=MESTRADO,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: MESTRADO
 
 dn: ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: POSGRADUACAO
 
 dn: ou=ACADEMICO,ou=FCH,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=ADMINISTRATIVO,ou=FCH,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ADMINISTRATIVO
 
 dn: ou=ACADEMICO,ou=FEA,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=ADMINISTRATIVO,ou=FEA,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ADMINISTRATIVO
 
 dn: ou=ACADEMICO,ou=FACE,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=ADMINISTRATIVO,ou=FACE,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ADMINISTRATIVO
 
 dn: ou=ACADEMICO,ou=MESTRADO,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=ACADEMICO,ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: SETOR DE TI
+
+dn: ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
+objectClass: top
+objectClass: organizationalRole
+cn: Users
+ou: Users
+
+dn: ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
+objectClass: top
+objectClass: organizationalRole
+cn:: R3J1cG9zIGRlIFVzdcOhcmlvcw==
+ou: Groups
+
+dn: ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
+objectClass: top
+objectClass: organizationalRole
+cn: Equipe de Infraestrutura
+ou: INFRAESTRUTURA
+
+dn: uid=glenon,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o
+ =FUMEC
+objectClass: posixAccount
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn:: R2xlbm9uIE1hdGV1cyBCYXJib3NhIEFyYcO6am8=
+gidNumber: 1000
+homeDirectory: /home/glenon
+sn: glenon
+uid: glenon
+uidNumber: 1000
+userPassword: {CRYPT}$5$CR3xZTTL$RmS8FSzeaPwrVi8c08mx1lUOF4VOrvaiGN7a21Pu9p5
 

@@ -4,6 +4,7 @@
 : ${LDAP_ROOTPW:='secret'}
 : ${LDAP_URLS:='ldapi:/// ldaps:/// ldap:///'}
 : ${LDAP_CONFDIR:='/etc/ldap/slapd.d/'}
+: ${LDAP_DATA:='/var/lib/ldap/'}
 : ${LDAP_DEBUG:='1'}
 : ${LDAP_TLSCACERTFILE:='/etc/ldap/certs/ca_server.pem'}
 : ${LDAP_TLSCERTFILE:='/etc/ldap/certs/ldap_server.pem'}
@@ -19,6 +20,8 @@ CONFIGS_VARS=(
   LDAP_TLSCERTFILE
   LDAP_TLSCERTKEYFILE
 )
+
+chown -R openldap: ${LDAP_CONFDIR} ${LDAP_DATA}
 
 echo -n "==> Setting configuration ... "
 [ -f "${LDAP_TLSCERTKEYFILE}" ] && chown openldap: ${LDAP_TLSCERTKEYFILE}
