@@ -10,12 +10,9 @@ services:
       replicas: 1
     ports:
     - 389:389
-    - 636:636
     environment:
     - LDAP_BASEDN=o=FUMEC
     - LDAP_ROOTPW=password
-    - LDAP_TLSCERTFILE=/etc/ldap/certs/ca-cert.pem
-    - LDAP_TLSCERTKEYFILE=/etc/ldap/private/ca-key.pem
     volumes:
     - slapd_conf:/etc/ldap/
     - slapd_lib:/var/lib/ldap/
