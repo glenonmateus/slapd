@@ -97,6 +97,12 @@ objectClass: organizationalRole
 cn:: R3J1cG9zIGRlIFVzdcOhcmlvcw==
 ou: Groups
 
+dn: ou=SUPORTE,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
+objectClass: top
+objectClass: organizationalRole
+cn: Equipe de Suporte
+ou: SUPORTE
+
 dn: ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
 objectClass: top
 objectClass: organizationalRole

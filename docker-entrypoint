@@ -6,9 +6,6 @@
 : ${LDAP_CONFDIR:='/etc/ldap/slapd.d/'}
 : ${LDAP_DATA:='/var/lib/ldap/'}
 : ${LDAP_DEBUG:='1'}
-: ${LDAP_TLSCACERTFILE:='/etc/ldap/certs/ca_server.pem'}
-: ${LDAP_TLSCERTFILE:='/etc/ldap/certs/ldap_server.pem'}
-: ${LDAP_TLSCERTKEYFILE:='/etc/ldap/private/ldap_server.key'}
 
 CONFIGS_VARS=(
   LDAP_BASEDN
@@ -16,17 +13,13 @@ CONFIGS_VARS=(
   LDAP_URLS
   LDAP_CONFDIR
   LDAP_DEBUG
-  LDAP_TLSCACERTFILE
-  LDAP_TLSCERTFILE
-  LDAP_TLSCERTKEYFILE
 )
 
 chown -R openldap: ${LDAP_CONFDIR} ${LDAP_DATA}
 
 echo -n "==> Setting configuration ... "
-[ -f "${LDAP_TLSCERTKEYFILE}" ] && chown openldap: ${LDAP_TLSCERTKEYFILE}
 slapd -u openldap -g openldap -h "ldapi:///" -F "${LDAP_CONFDIR}" && echo "exit error" || exit 1
-ldapmodify -Y EXTERNAL -H ldapi:/// <<EOF
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
 dn: olcDatabase={1}mdb,cn=config
 changetype: modify
 replace: olcSuffix
@@ -37,6 +30,9 @@ olcRootDN: cn=admin,${LDAP_BASEDN}
 -
 replace: olcRootPW
 olcRootPW: $(slappasswd -s "${LDAP_ROOTPW}")
+-
+replace: olcDbDirectory
+olcDbDirectory: ${LDAP_DATA}
 -
 replace: olcDbIndex
 olcDbIndex: cn pres,sub,eq
@@ -67,19 +63,6 @@ olcDbIndex: dc eq
 -
 add: olcDbIndex
 olcDbIndex: objectClass eq,pres
-EOF
-
-ldapmodify -Y EXTERNAL -H ldapi:/// <<EOF
-dn: cn=config
-changetype: modify
-add: olcTLSCACertificateFile
-olcTLSCACertificateFile: ${LDAP_TLSCACERTFILE}
--
-add: olcTLSCertificateFile
-olcTLSCertificateFile: ${LDAP_TLSCERTFILE}
--
-add: olcTLSCertificateKeyFile
-olcTLSCertificateKeyFile: ${LDAP_TLSCERTKEYFILE}
 EOF
 kill $(cat /run/slapd/slapd.pid)
 echo "Done"

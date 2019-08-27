@@ -14,9 +14,8 @@ services:
     environment:
     - LDAP_BASEDN=o=FUMEC
     - LDAP_ROOTPW=password
-    - LDAP_TLSCACERTFILE=/etc/ldap/certs/ca_server.pem
-    - LDAP_TLSCERTFILE=/etc/ldap/certs/ldap_server.pem
-    - LDAP_TLSCERTKEYFILE=/etc/ldap/private/ldap_server.key
+    - LDAP_TLSCERTFILE=/etc/ldap/certs/ca-cert.pem
+    - LDAP_TLSCERTKEYFILE=/etc/ldap/private/ca-key.pem
     volumes:
     - slapd_conf:/etc/ldap/
     - slapd_lib:/var/lib/ldap/
