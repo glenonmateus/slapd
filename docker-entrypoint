@@ -6,6 +6,9 @@
 : ${LDAP_CONFDIR:='/etc/ldap/slapd.d/'}
 : ${LDAP_DATA:='/var/lib/ldap/'}
 : ${LDAP_DEBUG:='1'}
+: ${LDAP_MIRROR:='mirrormode'}
+: ${LDAP_MIRRORPW:='mirror'}
+: ${LDAP_SERVERID:='0'}
 
 CONFIGS_VARS=(
   LDAP_BASEDN
@@ -16,6 +19,8 @@ CONFIGS_VARS=(
 )
 
 chown -R openldap: ${LDAP_CONFDIR} ${LDAP_DATA}
+ROOTPW=$(slappasswd -s "${LDAP_ROOTPW}")
+MIRROPW=$(slappasswd -s "${LDAP_MIRRORPW}")
 
 echo -n "==> Setting configuration ... "
 slapd -u openldap -g openldap -h "ldapi:///" -F "${LDAP_CONFDIR}" && echo "exit error" || exit 1
@@ -29,7 +34,7 @@ replace: olcRootDN
 olcRootDN: cn=admin,${LDAP_BASEDN}
 -
 replace: olcRootPW
-olcRootPW: $(slappasswd -s "${LDAP_ROOTPW}")
+olcRootPW: ${ROOTPW}
 -
 replace: olcDbDirectory
 olcDbDirectory: ${LDAP_DATA}
@@ -62,8 +67,49 @@ add: olcDbIndex
 olcDbIndex: dc eq
 -
 add: olcDbIndex
-olcDbIndex: objectClass eq,pres
+olcDbIndex: objectClass,entryCSN,entryUUID eq,pres
+-
+delete: olcAccess
+olcAccess: {0}to attrs=userPassword by self write by anonymous auth by * none
+-
+add: olcAccess
+olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,${LDAP_BASEDN}" write by dn="cn=${LDAP_MIRROR},${LDAP_BASEDN}" read by * none
 EOF
+
+ldapmodify -D "cn=admin,${LDAP_BASEDN}" -w "${LDAP_ROOTPW}" <<EOF
+dn: cn=${LDAP_MIRROR},${LDAP_BASEDN}
+changetype: add
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: ${LDAP_MIRROR}
+description: Syncrepl user for mirrormode operation
+userPassword: ${MIRROPW}
+EOF
+
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: cn=module{0},cn=config
+changetype: modify
+add: olcModuleLoad
+olcModuleLoad: syncprov
+EOF
+
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: olcOverlay=syncprov,olcDatabase={1}hdb,cn=config
+changeType: add
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+olcSpCheckpoint: 100 10
+olcSpSessionLog: 100
+EOF
+
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: cn=config
+changeType: modify
+add: olcServerID
+olcServerID: ${LDAP_SERVERID}
+EOF
+
 kill $(cat /run/slapd/slapd.pid)
 echo "Done"
 
