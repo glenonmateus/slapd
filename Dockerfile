@@ -1,4 +1,5 @@
 FROM debian:buster
+LABEL maintainer="Glenon Mateus <glenonmateus@gmail.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ America/Sao_Paulo
@@ -9,7 +10,7 @@ RUN apt-get update && \
       ldap-utils \ 
       gnutls-bin \ 
       ssl-cert && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/lib/apt/lists/* && \
     usermod -aG ssl-cert openldap && \
     mkdir /etc/ldap/certs/ && mkdir -m 0710 /etc/ldap/private/ && \
     chown :ssl-cert /etc/ldap/private/
