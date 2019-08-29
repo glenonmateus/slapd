@@ -10,14 +10,6 @@
 : ${LDAP_MIRRORPW:='mirror'}
 : ${LDAP_SERVERID:='0'}
 
-CONFIGS_VARS=(
-  LDAP_BASEDN
-  LDAP_ROOTPW
-  LDAP_URLS
-  LDAP_CONFDIR
-  LDAP_DEBUG
-)
-
 chown -R openldap: ${LDAP_CONFDIR} ${LDAP_DATA}
 ROOTPW=$(slappasswd -s "${LDAP_ROOTPW}")
 MIRROPW=$(slappasswd -s "${LDAP_MIRRORPW}")
