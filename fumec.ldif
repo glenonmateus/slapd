@@ -1,137 +1,156 @@
+version: 1
+
 dn: o=FUMEC
-objectClass: top
 objectClass: organization
+objectClass: top
 o: FUMEC
 
 dn: ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: REITORIA
 
 dn: ou=ADMINISTRATIVO,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ADMINISTRATIVO
 
 dn: ou=FCH,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: FCH
 
 dn: ou=FEA,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: FEA
 
 dn: ou=FACE,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: FACE
 
 dn: ou=MESTRADO,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: MESTRADO
 
 dn: ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: POSGRADUACAO
 
 dn: ou=ACADEMICO,ou=FCH,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ACADEMICO
 
 dn: ou=ADMINISTRATIVO,ou=FCH,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ADMINISTRATIVO
 
 dn: ou=ACADEMICO,ou=FEA,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ACADEMICO
 
 dn: ou=ADMINISTRATIVO,ou=FEA,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ADMINISTRATIVO
 
 dn: ou=ACADEMICO,ou=FACE,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ACADEMICO
 
 dn: ou=ADMINISTRATIVO,ou=FACE,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ADMINISTRATIVO
 
 dn: ou=ACADEMICO,ou=MESTRADO,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ACADEMICO
 
 dn: ou=ACADEMICO,ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ACADEMICO
 
 dn: ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: SETOR DE TI
 
 dn: ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: top
 objectClass: organizationalRole
+objectClass: top
 cn: Users
 ou: Users
 
 dn: ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: top
 objectClass: organizationalRole
+objectClass: top
 cn:: R3J1cG9zIGRlIFVzdcOhcmlvcw==
 ou: Groups
 
 dn: ou=SUPORTE,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: top
 objectClass: organizationalRole
+objectClass: top
 cn: Equipe de Suporte
 ou: SUPORTE
 
 dn: ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: top
 objectClass: organizationalRole
+objectClass: top
 cn: Equipe de Infraestrutura
 ou: INFRAESTRUTURA
 
-dn: uid=glenon.mateus,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTRAT
- IVO,o=FUMEC
+dn: uid=max,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FU
+ MEC
 objectClass: posixAccount
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
+cn: Maximiliano Ponce
+gidNumber: 10003
+homeDirectory: /home/max
+sn: max
+uid: max
+uidNumber: 10003
+loginShell: /bin/bash
+mail: max@fumec.br
+userPassword: {CRYPT}$5$C0Hnx2SC$ZexmPYNP7y34NB3oZdJweLbbGsJlCUx9bKqWfCUxbR8
+
+dn: uid=glenon.mateus,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTR
+ ATIVO,o=FUMEC
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+objectClass: posixAccount
 cn:: R2xlbm9uIE1hdGV1cyBCYXJib3NhIEFyYcO6am8=
-userPassword:: e0NSWVBUfSQ1JENSM3haVFRMJFJtUzhGU3plYVB3clZpOGMwOG14MWxVT0Y0Vk9
- ydmFpR043YTIxUHU5cDU=
-uid: glenon.mateus
+gidNumber: 10001
 homeDirectory: /home/glenon.mateus
 sn: glenon.mateus
-mail: glenon.mateus@fumec.br
-loginShell: /bin/bash
+uid: glenon.mateus
 uidNumber: 10001
-gidNumber: 10001
+loginShell: /bin/bash
+mail: glenon.mateus@fumec.br
+userPassword: {CRYPT}$5$CR3xZTTL$RmS8FSzeaPwrVi8c08mx1lUOF4VOrvaiGN7a21Pu9p5
 
-dn: uid=anderson.peixoto,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINIST
- RATIVO,o=FUMEC
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
-objectClass: person
-objectClass: top
+dn: uid=anderson.peixoto,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINI
+ STRATIVO,o=FUMEC
 objectClass: posixAccount
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Anderson Peixoto da Silva
 gidNumber: 10002
 homeDirectory: /home/anderson.peixoto
 sn: anderson.peixoto
@@ -139,6 +158,5 @@ uid: anderson.peixoto
 uidNumber: 10002
 loginShell: /bin/bash
 mail: anderson.peixoto@fumec.br
-userPassword:: e1NTSEF9bjY1NGtsQ2xvZjhremtlVmQ3TjZ4TWlac2RMOGJCYjk=
-cn: Anderson Peixoto da Silva
+userPassword: {SSHA}n654klClof8kzkeVd7N6xMiZsdL8bBb9
 
