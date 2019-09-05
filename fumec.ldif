@@ -111,11 +111,11 @@ ou: INFRAESTRUTURA
 
 dn: uid=max,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FU
  MEC
-objectClass: posixAccount
-objectClass: top
-objectClass: person
-objectClass: organizationalPerson
 objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+objectClass: posixAccount
 cn: Maximiliano Ponce
 gidNumber: 10003
 homeDirectory: /home/max
@@ -159,4 +159,27 @@ uidNumber: 10002
 loginShell: /bin/bash
 mail: anderson.peixoto@fumec.br
 userPassword: {SSHA}n654klClof8kzkeVd7N6xMiZsdL8bBb9
+
+dn: ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
+objectClass: top
+objectClass: organizationalUnit
+ou: SUDOERS
+
+dn: cn=glenon.mateus,ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o
+ =FUMEC
+objectClass: top
+objectClass: sudoRole
+cn: glenon.mateus
+sudoCommand: ALL
+sudoHost: ALL
+sudoUser: glenon.mateus
+
+dn: cn=anderson.peixoto,ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIV
+ O,o=FUMEC
+objectClass: top
+objectClass: sudoRole
+cn: anderson.peixoto
+sudoCommand: ALL
+sudoHost: ALL
+sudoUser: anderson.peixoto
 

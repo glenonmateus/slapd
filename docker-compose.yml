@@ -21,17 +21,17 @@ services:
 
 volumes:
   slapd_conf:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.3.15,rw"
-      device: ":/docker/slapd_conf"
+    #    driver: local
+    #driver_opts:
+    #  type: "nfs4"
+    #  o: "addr=10.0.3.15,rw"
+    #  device: ":/docker/slapd_conf"
   slapd_lib:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.3.15,rw"
-      device: ":/docker/slapd_lib"
+    #driver: local
+    #driver_opts:
+    #  type: "nfs4"
+    #  o: "addr=10.0.3.15,rw"
+    #  device: ":/docker/slapd_lib"
 
 networks:
   slapd:
