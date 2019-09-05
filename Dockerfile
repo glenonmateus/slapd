@@ -7,8 +7,8 @@ ENV TZ America/Sao_Paulo
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       slapd \
-      ldap-utils \ 
-      gnutls-bin \ 
+      ldap-utils \
+      gnutls-bin \
       ssl-cert && \
     rm -rf /var/lib/apt/lists/* && \
     usermod -aG ssl-cert openldap && \
@@ -16,7 +16,7 @@ RUN apt-get update && \
     chown :ssl-cert /etc/ldap/private/
 
 COPY ["schema", "/etc/ldap/schema/"]
-COPY ["schema.conf", "/tmp/"] 
+COPY ["schema.conf", "/tmp/"]
 
 RUN mkdir /tmp/slapd.d/ && \
     slaptest -f /tmp/schema.conf -F /tmp/slapd.d/ && \
