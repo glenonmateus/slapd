@@ -61,6 +61,9 @@ olcDbIndex: dc eq
 add: olcDbIndex
 olcDbIndex: objectClass,entryCSN,entryUUID eq,pres
 -
+add: olcDbIndex
+olcDbIndex: sudoUser eq
+-
 delete: olcAccess
 olcAccess: {0}to attrs=userPassword by self write by anonymous auth by * none
 -
