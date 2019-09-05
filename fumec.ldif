@@ -162,7 +162,8 @@ userPassword: {SSHA}n654klClof8kzkeVd7N6xMiZsdL8bBb9
 
 dn: ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
 objectClass: top
-objectClass: organizationalUnit
+objectClass: organizationalRole
+cn: sudoers
 ou: SUDOERS
 
 dn: cn=glenon.mateus,ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o
