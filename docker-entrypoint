@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 : ${LDAP_BASEDN:='dc=exemplo'}
 : ${LDAP_ROOTPW:='secret'}
