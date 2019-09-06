@@ -9,30 +9,30 @@ services:
         condition: on-failure
       replicas: 1
     ports:
-    - 389:389
-    - 636:636
+      - 389:389
+      - 636:636
     environment:
-    - LDAP_BASEDN=o=FUMEC
-    - LDAP_ROOTPW=password
+      - LDAP_BASEDN=o=FUMEC
+      - LDAP_ROOTPW=password
     volumes:
-    - slapd_conf:/etc/ldap/
-    - slapd_lib:/var/lib/ldap/
+      - slapd_conf:/etc/ldap/
+      - slapd_lib:/var/lib/ldap/
     networks:
-    - slapd
+      - slapd
 
 volumes:
   slapd_conf:
-    #    driver: local
-    #driver_opts:
-    #  type: "nfs4"
-    #  o: "addr=10.0.3.15,rw"
-    #  device: ":/docker/slapd_conf"
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.3.12,rw"
+      device: ":/nfs/docker/slapd_conf"
   slapd_lib:
-    #driver: local
-    #driver_opts:
-    #  type: "nfs4"
-    #  o: "addr=10.0.3.15,rw"
-    #  device: ":/docker/slapd_lib"
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.3.12,rw"
+      device: ":/nfs/docker/slapd_lib"
 
 networks:
   slapd:
