@@ -166,6 +166,14 @@ objectClass: organizationalRole
 cn: sudoers
 ou: SUDOERS
 
+dn: cn=max,ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
+objectClass: top
+objectClass: sudoRole
+cn: max
+sudoCommand: ALL
+sudoHost: ALL
+sudoUser: max
+
 dn: cn=glenon.mateus,ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o
  =FUMEC
 objectClass: top
