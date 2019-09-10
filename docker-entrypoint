@@ -6,13 +6,13 @@
 : ${LDAP_CONFDIR:='/etc/ldap/slapd.d/'}
 : ${LDAP_DATA:='/var/lib/ldap/'}
 : ${LDAP_DEBUG:='1'}
-: ${LDAP_MIRROR:='mirrormode'}
-: ${LDAP_MIRRORPW:='mirror'}
+: ${LDAP_SYNCUSER:='sync'}
+: ${LDAP_SYNCUSERPW:='password'}
 : ${LDAP_SERVERID:='0'}
 
 chown -R openldap: ${LDAP_CONFDIR} ${LDAP_DATA}
 ROOTPW=$(slappasswd -s "${LDAP_ROOTPW}")
-MIRRORPW=$(slappasswd -s "${LDAP_MIRRORPW}")
+SYNCPW=$(slappasswd -s "${LDAP_SYNCUSERPW}")
 
 echo -n "==> Setting configuration ... "
 slapd -u openldap -g openldap -h "ldapi:///" -F "${LDAP_CONFDIR}" && echo "exit error" || exit 1
@@ -68,17 +68,17 @@ delete: olcAccess
 olcAccess: {0}to attrs=userPassword by self write by anonymous auth by * none
 -
 add: olcAccess
-olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,${LDAP_BASEDN}" write by dn="cn=${LDAP_MIRROR},${LDAP_BASEDN}" read by * none
+olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,${LDAP_BASEDN}" write by dn="cn=${LDAP_SYNCUSER},${LDAP_BASEDN}" read by * none
 EOF
 
 ldapmodify -D "cn=admin,${LDAP_BASEDN}" -w "${ROOTPW}" <<EOF
-dn: cn=${LDAP_MIRROR},${LDAP_BASEDN}
+dn: cn=${LDAP_SYNCUSER},${LDAP_BASEDN}
 changetype: add
 objectClass: simpleSecurityObject
 objectClass: organizationalRole
-cn: ${LDAP_MIRROR}
+cn: ${LDAP_SYNCUSER}
 description: Syncrepl user for mirrormode operation
-userPassword: ${MIRROPW}
+userPassword: ${SYNCPW}
 EOF
 
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
@@ -89,7 +89,7 @@ olcModuleLoad: syncprov
 EOF
 
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
-dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
+dn: olcOverlay=syncprov,olcDatabase={1}hdb,cn=config
 changeType: add
 objectClass: olcOverlayConfig
 objectClass: olcSyncProvConfig
