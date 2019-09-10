@@ -12,7 +12,7 @@
 
 chown -R openldap: ${LDAP_CONFDIR} ${LDAP_DATA}
 ROOTPW=$(slappasswd -s "${LDAP_ROOTPW}")
-MIRROPW=$(slappasswd -s "${LDAP_MIRRORPW}")
+MIRRORPW=$(slappasswd -s "${LDAP_MIRRORPW}")
 
 echo -n "==> Setting configuration ... "
 slapd -u openldap -g openldap -h "ldapi:///" -F "${LDAP_CONFDIR}" && echo "exit error" || exit 1
@@ -71,7 +71,7 @@ add: olcAccess
 olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,${LDAP_BASEDN}" write by dn="cn=${LDAP_MIRROR},${LDAP_BASEDN}" read by * none
 EOF
 
-ldapmodify -D "cn=admin,${LDAP_BASEDN}" -w "${LDAP_ROOTPW}" <<EOF
+ldapmodify -D "cn=admin,${LDAP_BASEDN}" -w "${ROOTPW}" <<EOF
 dn: cn=${LDAP_MIRROR},${LDAP_BASEDN}
 changetype: add
 objectClass: simpleSecurityObject
