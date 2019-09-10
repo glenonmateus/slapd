@@ -12,7 +12,7 @@ services:
       - 389:389
       - 636:636
     environment:
-      - LDAP_BASEDN=o=FUMEC
+      - LDAP_BASEDN=FUMEC
       - LDAP_ROOTPW=password
     volumes:
       - slapd_conf:/etc/ldap/

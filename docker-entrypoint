@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-: ${LDAP_BASEDN:='dc=exemplo'}
+: ${LDAP_BASEDN:='exemplo'}
 : ${LDAP_ROOTPW:='secret'}
 : ${LDAP_URLS:='ldapi:/// ldaps:/// ldap:///'}
 : ${LDAP_CONFDIR:='/etc/ldap/slapd.d/'}
@@ -20,10 +20,10 @@ ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
 dn: olcDatabase={1}mdb,cn=config
 changetype: modify
 replace: olcSuffix
-olcSuffix: ${LDAP_BASEDN}
+olcSuffix: o=${LDAP_BASEDN}
 -
 replace: olcRootDN
-olcRootDN: cn=admin,${LDAP_BASEDN}
+olcRootDN: cn=admin,o=${LDAP_BASEDN}
 -
 replace: olcRootPW
 olcRootPW: ${ROOTPW}
@@ -68,11 +68,17 @@ delete: olcAccess
 olcAccess: {0}to attrs=userPassword by self write by anonymous auth by * none
 -
 add: olcAccess
-olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,${LDAP_BASEDN}" write by dn="cn=${LDAP_SYNCUSER},${LDAP_BASEDN}" read by * none
+olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,o=${LDAP_BASEDN}" write by dn="cn=${LDAP_SYNCUSER},o=${LDAP_BASEDN}" read by * none
 EOF
 
-ldapmodify -D "cn=admin,${LDAP_BASEDN}" -w "${ROOTPW}" <<EOF
-dn: cn=${LDAP_SYNCUSER},${LDAP_BASEDN}
+ldapmodify -D "cn=admin,o=${LDAP_BASEDN}" -w "${ROOTPW}" <<EOF
+dn: o=${LDAP_BASEDN}
+changetype: add
+objectClass: organization
+objectClass: top
+o: FUMEC
+
+dn: cn=${LDAP_SYNCUSER},o=${LDAP_BASEDN}
 changetype: add
 objectClass: simpleSecurityObject
 objectClass: organizationalRole
