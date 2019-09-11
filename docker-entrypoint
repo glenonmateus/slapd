@@ -15,7 +15,7 @@ ROOTPW=$(slappasswd -s "${LDAP_ROOTPW}")
 SYNCPW=$(slappasswd -s "${LDAP_SYNCUSERPW}")
 
 echo -n "==> Setting configuration ... "
-slapd -u openldap -g openldap -h "ldapi:///" -F "${LDAP_CONFDIR}" && echo "exit error" || exit 1
+slapd -u openldap -g openldap -h "ldapi:/// ldap:///" -F "${LDAP_CONFDIR}" && echo "exit error" || exit 1
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
 dn: olcDatabase={1}mdb,cn=config
 changetype: modify
@@ -71,13 +71,15 @@ add: olcAccess
 olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,o=${LDAP_BASEDN}" write by dn="cn=${LDAP_SYNCUSER},o=${LDAP_BASEDN}" read by * none
 EOF
 
-ldapmodify -D "cn=admin,o=${LDAP_BASEDN}" -w "${ROOTPW}" <<EOF
+ldapmodify -D "cn=admin,o=${LDAP_BASEDN}" -w "${LDAP_ROOTPW}" <<EOF
 dn: o=${LDAP_BASEDN}
 changetype: add
 objectClass: organization
 objectClass: top
-o: FUMEC
+o: ${LDAP_BASEDN}
+EOF
 
+ldapmodify -D "cn=admin,o=${LDAP_BASEDN}" -w "${LDAP_ROOTPW}" <<EOF
 dn: cn=${LDAP_SYNCUSER},o=${LDAP_BASEDN}
 changetype: add
 objectClass: simpleSecurityObject
@@ -95,7 +97,7 @@ olcModuleLoad: syncprov
 EOF
 
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
-dn: olcOverlay=syncprov,olcDatabase={1}hdb,cn=config
+dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
 changeType: add
 objectClass: olcOverlayConfig
 objectClass: olcSyncProvConfig
