@@ -1,121 +1,114 @@
-version: 1
-
-dn: o=FUMEC
-objectClass: organization
-objectClass: top
-o: FUMEC
-
 dn: ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: REITORIA
 
 dn: ou=ADMINISTRATIVO,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ADMINISTRATIVO
 
 dn: ou=FCH,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: FCH
 
 dn: ou=FEA,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: FEA
 
 dn: ou=FACE,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: FACE
 
 dn: ou=MESTRADO,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: MESTRADO
 
 dn: ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: POSGRADUACAO
 
 dn: ou=ACADEMICO,ou=FCH,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=ADMINISTRATIVO,ou=FCH,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ADMINISTRATIVO
 
 dn: ou=ACADEMICO,ou=FEA,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=ADMINISTRATIVO,ou=FEA,ou=REITORIA,o=FUMEC
-objectClass: organizationalUnit
 objectClass: top
+objectClass: organizationalUnit
 ou: ADMINISTRATIVO
 
 dn: ou=ACADEMICO,ou=FACE,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=ADMINISTRATIVO,ou=FACE,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ADMINISTRATIVO
 
 dn: ou=ACADEMICO,ou=MESTRADO,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=ACADEMICO,ou=POSGRADUACAO,ou=REITORIA,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: ACADEMICO
 
 dn: ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: top
 objectClass: organizationalUnit
+objectClass: top
 ou: SETOR DE TI
 
 dn: ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: organizationalRole
 objectClass: top
+objectClass: organizationalRole
 cn: Users
 ou: Users
 
 dn: ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: organizationalRole
 objectClass: top
+objectClass: organizationalRole
 cn:: R3J1cG9zIGRlIFVzdcOhcmlvcw==
 ou: Groups
 
 dn: ou=SUPORTE,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: organizationalRole
 objectClass: top
+objectClass: organizationalRole
 cn: Equipe de Suporte
 ou: SUPORTE
 
 dn: ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: organizationalRole
 objectClass: top
+objectClass: organizationalRole
 cn: Equipe de Infraestrutura
 ou: INFRAESTRUTURA
 
 dn: uid=max,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FU
  MEC
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
-objectClass: person
-objectClass: top
 objectClass: posixAccount
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 cn: Maximiliano Ponce
 gidNumber: 10003
 homeDirectory: /home/max
@@ -128,11 +121,11 @@ userPassword: {CRYPT}$5$C0Hnx2SC$ZexmPYNP7y34NB3oZdJweLbbGsJlCUx9bKqWfCUxbR8
 
 dn: uid=glenon.mateus,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINISTR
  ATIVO,o=FUMEC
-objectClass: inetOrgPerson
-objectClass: organizationalPerson
-objectClass: person
-objectClass: top
 objectClass: posixAccount
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
 cn:: R2xlbm9uIE1hdGV1cyBCYXJib3NhIEFyYcO6am8=
 gidNumber: 10001
 homeDirectory: /home/glenon.mateus
@@ -145,11 +138,11 @@ userPassword: {CRYPT}$5$CR3xZTTL$RmS8FSzeaPwrVi8c08mx1lUOF4VOrvaiGN7a21Pu9p5
 
 dn: uid=anderson.peixoto,ou=INFRAESTRUTURA,ou=Users,ou=SETOR DE TI,ou=ADMINI
  STRATIVO,o=FUMEC
-objectClass: posixAccount
-objectClass: top
-objectClass: person
-objectClass: organizationalPerson
 objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+objectClass: posixAccount
 cn: Anderson Peixoto da Silva
 gidNumber: 10002
 homeDirectory: /home/anderson.peixoto
@@ -161,14 +154,14 @@ mail: anderson.peixoto@fumec.br
 userPassword: {SSHA}n654klClof8kzkeVd7N6xMiZsdL8bBb9
 
 dn: ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: top
 objectClass: organizationalRole
+objectClass: top
 cn: sudoers
 ou: SUDOERS
 
 dn: cn=max,ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o=FUMEC
-objectClass: top
 objectClass: sudoRole
+objectClass: top
 cn: max
 sudoCommand: ALL
 sudoHost: ALL
@@ -176,8 +169,8 @@ sudoUser: max
 
 dn: cn=glenon.mateus,ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIVO,o
  =FUMEC
-objectClass: top
 objectClass: sudoRole
+objectClass: top
 cn: glenon.mateus
 sudoCommand: ALL
 sudoHost: ALL
@@ -185,8 +178,8 @@ sudoUser: glenon.mateus
 
 dn: cn=anderson.peixoto,ou=SUDOERS,ou=Groups,ou=SETOR DE TI,ou=ADMINISTRATIV
  O,o=FUMEC
-objectClass: top
 objectClass: sudoRole
+objectClass: top
 cn: anderson.peixoto
 sudoCommand: ALL
 sudoHost: ALL
