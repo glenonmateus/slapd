@@ -44,12 +44,13 @@ do
     b) BASE=${OPTARG} ;;
     i) INPUT=${OPTARG} ;;
     o) OUTPUT=${OPTARG} ;;
+    *) exit_abnormal ;;
   esac
 done
 
-[ -z "$BASE" ] && exit_abnormal
-[ -z "$INPUT" ] && exit_abnormal
-[ -z "$OUTPUT" ] && exit_abnormal
+if [ -z "$BASE" ] || [ -z "$INPUT" ] || [ -z "$OUTPUT" ] ; then
+  exit_abnormal
+fi
 
 if [ -f "$OUTPUT" ]; then
   read -p "File $OUTPUT already exist, overwrite? (y/n): " OPTION
