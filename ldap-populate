@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+usage() {
+  echo "Usage: $0 [ -b BASE ] [ -i INPUT_CSVFILE ] [ -o OUTPUT_LDIFFILE ]"
+}
+
+exit_abnormal() {
+  usage
+  exit 1
+}
+
+create_ldif() {
+sed 1d $INPUT | while IFS=, read LOGIN NOME EMAIL EMAILOUTRO CELULAR TELEFONE CURSO
+do
+  echo "dn: uid=$LOGIN,$BASE" | tee -a $OUTPUT
+  echo "objectClass: inetOrgPerson" | tee -a $OUTPUT
+  echo "objectClass: organizationalPerson" | tee -a $OUTPUT
+  echo "objectClass: person" | tee -a $OUTPUT
+  echo "objectClass: posixAccount" | tee -a $OUTPUT
+  echo "objectClass: shadowAccount" | tee -a $OUTPUT
+  echo "objectClass: sambaSamAccount" | tee -a $OUTPUT
+  echo "objectClass: top" | tee -a $OUTPUT
+  echo "cn: $LOGIN" | tee -a $OUTPUT
+  echo "homeDirectory: /home/LAN/$LOGIN" | tee -a $OUTPUT
+  echo "sambaSID: \$SAMBAUID\$" | tee -a $OUTPUT
+  echo "sn: $LOGIN" | tee -a $OUTPUT
+  echo "uid: $LOGIN" | tee -a $OUTPUT
+  echo "uidNumber: 20000" | tee -a $OUTPUT
+  echo "gidNumber: 20000" | tee -a $OUTPUT
+  echo "displayName: $LOGIN" | tee -a $OUTPUT
+  echo "gecos: $(echo "$NOME" | iconv -f utf8 -t ascii//TRANSLIT)" | tee -a $OUTPUT
+  echo "givenName: $LOGIN" | tee -a $OUTPUT
+  echo "loginShell: /bin/false" | tee -a $OUTPUT
+  echo "mail: $EMAIL" | tee -a $OUTPUT
+  echo "telephoneNumber: $([ ! -z "$CELULAR" ] && echo $CELULAR || echo "0")" | tee -a $OUTPUT
+  echo "telephoneNumber: $([ ! -z "$TELEFONE" ] && echo $TELEFONE || echo "0")" | tee -a $OUTPUT
+  echo -e "userPassword: {CRYPT}$(mkpasswd -m sha-512 $LOGIN)\n" | tee -a $OUTPUT
+done
+}
+
+while getopts "b:i:o:" OPTION
+do
+  case $OPTION in
+    b) BASE=${OPTARG} ;;
+    i) INPUT=${OPTARG} ;;
+    o) OUTPUT=${OPTARG} ;;
+  esac
+done
+
+[ -z "$BASE" ] && exit_abnormal
+[ -z "$INPUT" ] && exit_abnormal
+[ -z "$OUTPUT" ] && exit_abnormal
+
+if [ -f "$OUTPUT" ]; then
+  read -p "File $OUTPUT already exist, overwrite? (y/n): " OPTION
+  case $OPTION in
+    y | Y)
+      > $OUTPUT
+      create_ldif
+      ;;
+    n | N)
+      exit 0
+      ;;
+    *)
+      echo "Invalid option"
+      exit 0
+      ;;
+  esac
+fi
+
+create_ldif
