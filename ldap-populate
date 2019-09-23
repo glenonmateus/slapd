@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
 
 usage() {
-  echo "Usage: $0 [ -b BASE ] [ -i INPUT_CSVFILE ] [ -o OUTPUT_LDIFFILE ]"
+cat <<EOF
+
+Usage: $0 [ -b BASE ] [ -i INPUT_CSVFILE ] [ -o OUTPUT_LDIFFILE ]
+
+Options:
+  -b      ldap base
+  -i      input csv file (delimiter ,)
+  -o      output save ldif file
+
+EOF
 }
 
 exit_abnormal() {
