@@ -41,8 +41,10 @@ do
   echo "givenName: $LOGIN" | tee -a $OUTPUT
   echo "loginShell: /bin/false" | tee -a $OUTPUT
   echo "mail: $EMAIL" | tee -a $OUTPUT
-  echo "telephoneNumber: $([ ! -z "$CELULAR" ] && echo $CELULAR || echo "0")" | tee -a $OUTPUT
-  echo "telephoneNumber: $([ ! -z "$TELEFONE" ] && echo $TELEFONE || echo "0")" | tee -a $OUTPUT
+  [ ! -z "$CELULAR" ] && echo "telephoneNumber: $CELULAR" | tee -a $OUTPUT
+  [ ! -z "$TELEFONE" ] && echo "telephoneNumber: $TELEFONE" | tee -a $OUTPUT 
+  #echo "telephoneNumber: $([ ! -z "$CELULAR" ] && echo $CELULAR || echo "0")" | tee -a $OUTPUT
+  #echo "telephoneNumber: $([ ! -z "$TELEFONE" ] && echo $TELEFONE || echo "0")" | tee -a $OUTPUT
   echo -e "userPassword: {CRYPT}$(mkpasswd -m sha-512 $LOGIN)\n" | tee -a $OUTPUT
 done
 }
