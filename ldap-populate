@@ -22,32 +22,43 @@ exit_abnormal() {
 }
 
 create_ldif() {
-sed 1d $INPUT | while IFS=, read LOGIN NOME EMAIL EMAILOUTRO CELULAR TELEFONE CURSO
-do
-  echo "dn: uid=$LOGIN,$BASE" | tee -a $OUTPUT
-  echo "objectClass: inetOrgPerson" | tee -a $OUTPUT
-  echo "objectClass: organizationalPerson" | tee -a $OUTPUT
-  echo "objectClass: person" | tee -a $OUTPUT
-  echo "objectClass: posixAccount" | tee -a $OUTPUT
-  echo "objectClass: shadowAccount" | tee -a $OUTPUT
-  echo "objectClass: sambaSamAccount" | tee -a $OUTPUT
-  echo "objectClass: top" | tee -a $OUTPUT
-  echo "cn: $LOGIN" | tee -a $OUTPUT
-  echo "homeDirectory: /home/LAN/$LOGIN" | tee -a $OUTPUT
-  echo "sambaSID: \$SAMBAUID\$" | tee -a $OUTPUT
-  echo "sn: $LOGIN" | tee -a $OUTPUT
-  echo "uid: $LOGIN" | tee -a $OUTPUT
-  echo "uidNumber: 20000" | tee -a $OUTPUT
-  echo "gidNumber: 20000" | tee -a $OUTPUT
-  echo "displayName: $LOGIN" | tee -a $OUTPUT
-  echo "gecos: $(echo "$NOME" | iconv -f utf8 -t ascii//TRANSLIT)" | tee -a $OUTPUT
-  echo "givenName: $LOGIN" | tee -a $OUTPUT
-  echo "loginShell: /bin/false" | tee -a $OUTPUT
-  echo "mail: $EMAIL" | tee -a $OUTPUT
-  [ ! -z "$CELULAR" ] && echo "telephoneNumber: $CELULAR" | tee -a $OUTPUT
-  [ ! -z "$TELEFONE" ] && echo "telephoneNumber: $TELEFONE" | tee -a $OUTPUT
-  echo -e "userPassword: {CRYPT}$(mkpasswd -m sha-512 $LOGIN)\n" | tee -a $OUTPUT
-done
+  echo -n "Creating ldif file ... "
+  sed 1d $INPUT | while IFS=, read LOGIN NOME EMAIL EMAILOUTRO CELULAR TELEFONE CURSO
+    do
+      LASTUIDNUMBER=$(expr $LASTUIDNUMBER + 1)
+      NOME=$(echo $NOME | iconv -f utf8 -t ascii//TRANSLIT)
+      PASSWORD=$(mkpasswd -m sha-512 $LOGIN)
+
+cat <<EOF >> $OUTPUT
+dn: uid=$LOGIN,$BASE
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+objectClass: top
+cn: $LOGIN
+homeDirectory: /home/LAN/$LOGIN
+sambaSID: \$SAMBAUID\$
+sambaAcctFlags: [U]
+sn: $LOGIN
+uid: $LOGIN
+uidNumber: $LASTUIDNUMBER
+gidNumber: 100019
+displayName: $LOGIN
+gecos: $NOME
+givenName: $LOGIN
+loginShell: /bin/false
+mail: $EMAIL
+$([ ! -z "$CELULAR" ] && echo "telephoneNumber: $CELULAR")
+$([ ! -z "$TELEFONE" ] && echo "telephoneNumber: $TELEFONE")
+userPassword: {CRYPT}$PASSWORD
+
+EOF
+
+    done
+  echo "Done"
 }
 
 while getopts "b:i:o:" OPTION
@@ -70,6 +81,7 @@ if [ -f "$OUTPUT" ]; then
     y | Y)
       > $OUTPUT
       create_ldif
+      exit 0
       ;;
     n | N)
       exit 0
