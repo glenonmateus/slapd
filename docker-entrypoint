@@ -96,6 +96,8 @@ add: olcModuleLoad
 olcModuleLoad: syncprov
 EOF
 
+if [ -z $(ldapsearch -QLLL -Y EXTERNAL -H ldapi:// -b 'cn=config' dn | grep syncprov) ]
+then
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
 dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
 changeType: add
@@ -105,6 +107,7 @@ olcOverlay: syncprov
 olcSpCheckpoint: 100 10
 olcSpSessionLog: 100
 EOF
+fi
 
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
 dn: cn=config
