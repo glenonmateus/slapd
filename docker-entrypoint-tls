@@ -89,3 +89,87 @@ echo "Done"
 
 echo "==> Starting slapd"
 slapd -u openldap -g openldap -h "${LDAP_URLS}" -F ${LDAP_CONFDIR} -d ${LDAP_DEBUG}
+
+OUTPUT=$(ldapsearch -QLLL -Y EXTERNAL -H ldapi:/// -b "cn=config" '(cn=config)' | grep olcTLSCACertificateFile)
+if [ ! -z "${LDAP_TLSCACERTFILE}" ] && [ -f "${LDAP_TLSCACERTFILE}" ]
+then
+    echo "Setting CACertificateFile"
+    chown -R openldap: ${LDAP_TLSCACERTFILE}
+    chmod 700 ${LDAP_TLSCACERTFILE}
+    if [ -z "${OUTPUT}" ]
+    then
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: cn=config
+changetype: modify
+add: olcTLSCACertificateFile
+olcTLSCACertificateFile: ${LDAP_TLSCACERTFILE}
+EOF
+    else
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: cn=config
+changetype: modify
+replace: olcTLSCACertificateFile
+olcTLSCACertificateFile: ${LDAP_TLSCACERTFILE}
+EOF
+    fi
+else
+echo "CA Certificate file do not defined or not exist"
+fi
+
+set -x
+OUTPUT=$(ldapsearch -QLLL -Y EXTERNAL -H ldapi:/// -b "cn=config" '(cn=config)' | grep olcTLSCertificateFile)
+if [ ! -z "${LDAP_TLSCERTFILE}" ] && [ -f "${LDAP_TLSCERTFILE}" ]
+then
+    echo -n "Setting CertificateFile"
+    chown -R openldap: ${LDAP_TLSCERTFILE}
+    chmod 700 ${LDAP_TLSCERTFILE}
+    if [ -z "$OUTPUT" ]
+    then
+    echo "adding"
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: cn=config
+changetype: modify
+add: olcTLSCertificateFile
+olcTLSCertificateFile: ${LDAP_TLSCERTFILE}
+EOF
+    else
+    echo "replacing"
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: cn=config
+changetype: modify
+replace: olcTLSCertificateFile
+olcTLSCertificateFile: ${LDAP_TLSCERTFILE}
+EOF
+    fi
+else
+echo "Certificate not defined or not exist"
+fi
+set +x
+
+OUTPUT=$(ldapsearch -QLLL -Y EXTERNAL -H ldapi:/// -b "cn=config" '(cn=config)' | grep olcTLSCertificateKeyFile)
+if [ ! -z "${LDAP_TLSCERTKEYFILE}" ] && [ -f "${LDAP_TLSCERTKEYFILE}" ]
+then
+    echo -n "Setting CertificateKeyFile ... "
+    chown -R openldap: ${LDAP_TLSCERTKEYFILE}
+    chmod 700 ${LDAP_TLSCERTKEYFILE}
+    if [ -z "$OUTPUT" ]
+    then
+    echo "adding"
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: cn=config
+changetype: modify
+add: olcTLSCertificateKeyFile
+olcTLSCertificateKeyFile: ${LDAP_TLSCERTKEYFILE}
+EOF
+    else
+    echo "replacing"
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: cn=config
+changetype: modify
+replace: olcTLSCertificateKeyFile
+olcTLSCertificateKeyFile: ${LDAP_TLSCERTKEYFILE}
+EOF
+    fi
+else
+echo "Certificate Key not defined or not exist"
+fi

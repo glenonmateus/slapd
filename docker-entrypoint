@@ -14,8 +14,8 @@ chown -R openldap: ${LDAP_CONFDIR} ${LDAP_DATA}
 ROOTPW=$(slappasswd -s "${LDAP_ROOTPW}")
 SYNCPW=$(slappasswd -s "${LDAP_SYNCUSERPW}")
 
-echo -n "==> Setting configuration ... "
-slapd -u openldap -g openldap -h "ldapi:/// ldap:///" -F "${LDAP_CONFDIR}" && echo "exit error" || exit 1
+echo "==> Setting configuration ... "
+slapd -u openldap -g openldap -h "ldapi:/// ldap:///" -F "${LDAP_CONFDIR}"
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
 dn: olcDatabase={1}mdb,cn=config
 changetype: modify
@@ -64,10 +64,7 @@ olcDbIndex: objectClass,entryCSN,entryUUID eq,pres
 add: olcDbIndex
 olcDbIndex: sudoUser eq
 -
-delete: olcAccess
-olcAccess: {0}to attrs=userPassword by self write by anonymous auth by * none
--
-add: olcAccess
+replace: olcAccess
 olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,o=${LDAP_BASEDN}" write by dn="cn=${LDAP_SYNCUSER},o=${LDAP_BASEDN}" read by * none
 EOF
 
@@ -89,15 +86,18 @@ description: Syncrepl user for mirrormode operation
 userPassword: ${SYNCPW}
 EOF
 
+OUTPUT=$(ldapsearch -QLLL -Y EXTERNAL -H ldapi:/// -b 'cn=config' '(cn=module{0})' | grep syncprov)
+if [ -z "${OUTPUT}" ]; then
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
 dn: cn=module{0},cn=config
 changetype: modify
 add: olcModuleLoad
 olcModuleLoad: syncprov
 EOF
+fi
 
-if [ -z $(ldapsearch -QLLL -Y EXTERNAL -H ldapi:// -b 'cn=config' dn | grep syncprov) ]
-then
+OUTPUT=$(ldapsearch -QLLL -Y EXTERNAL -H ldapi:/// -b 'cn=config' dn | grep syncprov)
+if [ -z "${OUTPUT}" ]; then
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
 dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
 changeType: add
@@ -112,9 +112,31 @@ fi
 ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
 dn: cn=config
 changeType: modify
-add: olcServerID
+replace: olcServerID
 olcServerID: ${LDAP_SERVERID}
 EOF
+
+OUTPUT=$(ldapsearch -QLLL -Y EXTERNAL -H ldapi:/// -b "cn=config" '(cn=module{0})' | grep memberof)
+if [ -z "${OUTPUT}" ]; then
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: cn=module{0},cn=config
+changeType: modify
+add: olcModuleLoad
+olcModuleLoad: memberof.la
+EOF
+fi
+
+OUTPUT=$(ldapsearch -QLLL -Y EXTERNAL -H ldapi:/// -b "cn=config" dn | grep memberof)
+if [ -z "${OUTPUT}" ]; then
+ldapmodify -QY EXTERNAL -H ldapi:/// <<EOF
+dn: olcOverlay=memberof,olcDatabase={1}mdb,cn=config
+changeType: add
+objectClass: olcOverlayConfig
+objectClass: olcMemberOf
+olcOverlay: memberof
+olcMemberOfRefint: TRUE
+EOF
+fi
 
 kill $(cat /run/slapd/slapd.pid)
 echo "Done"

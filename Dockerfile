@@ -1,19 +1,14 @@
 FROM debian:buster
 LABEL maintainer="Glenon Mateus <glenonmateus@gmail.com>"
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV TZ America/Sao_Paulo
+ENV DEBIAN_FRONTEND=noninteractive \
+    TZ=America/Sao_Paulo
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       slapd \
-      ldap-utils \
-      gnutls-bin \
-      ssl-cert && \
-    rm -rf /var/lib/apt/lists/* && \
-    usermod -aG ssl-cert openldap && \
-    mkdir /etc/ldap/certs/ && mkdir -m 0710 /etc/ldap/private/ && \
-    chown :ssl-cert /etc/ldap/private/
+      ldap-utils && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY ["schema", "/etc/ldap/schema/"]
 COPY ["schema.conf", "/tmp/"]
