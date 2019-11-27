@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:buster-slim
 LABEL maintainer="Glenon Mateus <glenonmateus@gmail.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive \
