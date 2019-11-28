@@ -63,9 +63,6 @@ olcDbIndex: objectClass,entryCSN,entryUUID eq,pres
 -
 add: olcDbIndex
 olcDbIndex: sudoUser eq
--
-replace: olcAccess
-olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,o=${LDAP_BASEDN}" write by dn="cn=${LDAP_SYNCUSER},o=${LDAP_BASEDN}" read by * none
 EOF
 
 ldapmodify -D "cn=admin,o=${LDAP_BASEDN}" -w "${LDAP_ROOTPW}" <<EOF
